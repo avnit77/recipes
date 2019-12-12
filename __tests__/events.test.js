@@ -34,7 +34,7 @@ describe('event routes', () => {
 
     event = await Event.create({
       recipeId: recipe._id,
-      dateOfEvent: new Date(),
+      dateOfEvent: new Date('2014-12-12T00:00:00'),
       notes: 'It was good',
       rating: 5
     });
@@ -49,7 +49,7 @@ describe('event routes', () => {
       .post('/api/v1/events')
       .send({
         recipeId: recipe._id,
-        dateOfEvent: Date.now(),
+        dateOfEvent: Date('2014-12-12T00:00:00'),
         notes: 'It went well',
         rating: 4
       })
@@ -63,6 +63,29 @@ describe('event routes', () => {
           __v: 0
         });
       });
+  });
+
+  it('has a day get virtual', () => {
+    expect(event.day).toEqual('Friday');
+  });
+  it('has a month get virtual', () => {
+    expect(event.month).toEqual('December');
+  });
+  it('has a year get virtual', () => {
+    expect(event.year).toEqual(2014);
+  });
+
+  it('has a day set virtual', () => {
+    event.day = 'Thursday';
+    expect(event.dateOfEvent).toEqual(new Date('2014-12-05T00:00:00'));
+  });
+  it('has a month set virtual', () => {
+    event.month = 'November';
+    expect(event.dateOfEvent).toEqual(new Date('2014-11-12T00:00:00'));
+  });
+  it('has a year set virtual', () => {
+    event.year = 2013;
+    expect(event.dateOfEvent).toEqual(new Date('2013-12-12T00:00:00'));
   });
 
   it('gets all events', async() => {
