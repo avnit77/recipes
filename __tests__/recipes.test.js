@@ -143,6 +143,7 @@ describe('recipe routes', () => {
             'put dough on cookie sheet',
             'bake for 10 minutes'
           ],
+          attempts: JSON.parse(JSON.stringify([])),
           __v: 0
         });
       });
